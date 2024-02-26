@@ -39,7 +39,7 @@ jobs:
           choco pack
 
       - name: Install OpenJDK8
-        run: choco install openjdk --version=17.0.2
+        run: choco install temurin17
 
       - name: Choco install
         run: |
