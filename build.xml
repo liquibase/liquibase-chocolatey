@@ -26,16 +26,16 @@
         https://github.com/liquibase/liquibase/releases/download/v${env.LIQUIBASE_VERSION}/liquibase-${env.LIQUIBASE_VERSION}.zip
     -->
 	<get 
-        src="https://github.com/liquibase/liquibase/releases/download/v${env.LIQUIBASE_VERSION}/liquibase-${env.LIQUIBASE_VERSION}.zip"
-        dest="work/liquibase-${env.LIQUIBASE_VERSION}-bin.zip"/>
+        src="https://github.com/liquibase/liquibase/releases/download/v4.29.0/liquibase-4.29.0.zip"
+        dest="work/liquibase-4.29.0-bin.zip"/>
     <!--<get src="http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" dest="work/slf4j-api-1.7.25.jar"/>-->
 	</target>
    
     <target name="load.sha512.as.property" depends="get.sha512" description="Loads the sha512 checksum as a property.">
         <property environment="env"/>
 		<echo>Generate SHA-512 checksum...</echo>
-		<checksum file="work/liquibase-${env.LIQUIBASE_VERSION}-bin.zip" algorithm="SHA-512" property="sha512"/>
-		<checksum file="work/liquibase-${env.LIQUIBASE_VERSION}-bin.zip" algorithm="SHA-512" fileext=".asc"/>
+		<checksum file="work/liquibase-4.29.0-bin.zip" algorithm="SHA-512" property="sha512"/>
+		<checksum file="work/liquibase-4.29.0-bin.zip" algorithm="SHA-512" fileext=".asc"/>
         <echo>Got SHA-512 checksum : &lt;${sha512}&gt;</echo>
     </target>
     
@@ -46,24 +46,24 @@
         <echo>Preparing &lt;liquibase.nuspec&gt; file : injecting liquibase version...</echo>
         <copy file="templates/liquibase.nuspec.TEMPLATE" tofile="liquibase.nuspec"/>
         <echo>Injecting target liquibase version in nuspec file...</echo>
-        <replace file="liquibase.nuspec" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="liquibase.nuspec" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <echo>nuspec file prepared.</echo>
         
         <echo>Preparing &lt;chocolateyInstall.ps1&gt; ...</echo>
         <copy file="templates/chocolateyInstall.ps1.TEMPLATE" tofile="tools/chocolateyInstall.ps1"/>
-        <replace file="tools/chocolateyInstall.ps1" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="tools/chocolateyInstall.ps1" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <replace file="tools/chocolateyInstall.ps1" token="@SHA512@" value="${sha512}"/>
         <echo>&lt;chocolateyInstall.ps1&gt; file prepared.</echo>
         
         <echo>Preparing &lt;chocolateyUninstall.ps1&gt; ...</echo>
         <copy file="templates/chocolateyUninstall.ps1.TEMPLATE" tofile="tools/chocolateyUninstall.ps1"/>
-        <replace file="tools/chocolateyUninstall.ps1" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="tools/chocolateyUninstall.ps1" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <echo>&lt;chocolateyUninstall.ps1&gt; file prepared.</echo>
 		<echo>All build files prepared.</echo>
 		
 		<echo>Preparing &lt;release.ps1&gt; ...</echo>
         <copy file="templates/release.ps1.TEMPLATE" tofile="release.ps1"/>
-        <replace file="release.ps1" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="release.ps1" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <echo>&lt;release.ps1&gt; file prepared.</echo>
     </target>
 	
