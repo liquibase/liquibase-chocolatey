@@ -49,9 +49,6 @@ jobs:
         run: |
           choco pack
 
-      - name: Install Temurin 17
-        run: choco install temurin17
-
       - name: Choco install
         run: |
           choco install liquibase --version="${{ inputs.version }}" --source="." --debug --verbose
