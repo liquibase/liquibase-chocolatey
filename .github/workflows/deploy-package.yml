@@ -46,8 +46,8 @@ jobs:
       - name: Choco install
         run: |
           choco install liquibase --version="${{ inputs.version }}" --source="." --debug --verbose
-          #liquibase --version
+          liquibase --version
 
       - name: Choco push
         run: |
-          choco push liquibase.${{ inputs.version }}.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
+          #choco push liquibase.${{ inputs.version }}.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
