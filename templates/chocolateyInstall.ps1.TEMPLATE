@@ -4,13 +4,13 @@ $bat = Join-Path $content 'liquibase.bat'
 
 Install-ChocolateyZipPackage `
   -PackageName 'liquibase' `
-  -Url 'https://github.com/liquibase/liquibase/releases/download/v4.29.0/liquibase-4.29.0.zip' `
+  -Url 'https://github.com/liquibase/liquibase/releases/download/v@LIQUIBASE_VERSION@/liquibase-@LIQUIBASE_VERSION@.zip' `
   -Checksum '@SHA512@' `
   -ChecksumType 'SHA512' `
   -UnzipLocation $content
 
 # Get the extracted directory name
-$extractedDir = Join-Path $content "liquibase-4.29.0"
+$extractedDir = Join-Path $content "liquibase-@LIQUIBASE_VERSION@"
 
 # Move the contents of the extracted directory to the content directory
 Get-ChildItem -Path $extractedDir | Move-Item -Destination $content -Force

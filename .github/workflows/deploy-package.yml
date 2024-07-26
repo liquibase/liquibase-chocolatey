@@ -47,16 +47,16 @@ jobs:
 
       - name: Choco pack
         run: |
-          choco pack --version 4.29.0.1
+          choco pack
 
       - name: Install Temurin 17
         run: choco install temurin17
 
       - name: Choco install
         run: |
-          choco install liquibase --version="4.29.0.1" --source="." --debug --verbose
+          choco install liquibase --version="${{ inputs.version }}" --source="." --debug --verbose
           liquibase --version
 
       - name: Choco push
         run: |
-          choco push liquibase.4.29.0.1.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
+          choco push liquibase.${{ inputs.version }}.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
