@@ -47,19 +47,19 @@ jobs:
 
       - name: Choco pack
         run: |
-          choco pack --version 4.29
+          choco pack --version 4.29.0.1
 
       - name: Install Temurin 17
         run: choco install temurin17
 
       - name: Choco install
         run: |
-          choco install liquibase --version="4.29" --source="." --debug --verbose
+          choco install liquibase --version="4.29.0.1" --source="." --debug --verbose
           liquibase --version
 
       - name: Choco push
         run: |
           $sourceFile = "liquibase.4.29.0.nupkg"
-          $destinationFile = "liquibase.4.29.nupkg"
+          $destinationFile = "liquibase.4.29.0.1.nupkg"
           Rename-Item -Path $sourceFile -NewName $destinationFile
-          choco push liquibase.4.29.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
+          choco push liquibase.4.29.0.1.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
