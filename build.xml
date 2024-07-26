@@ -26,7 +26,7 @@
         https://github.com/liquibase/liquibase/releases/download/v${env.LIQUIBASE_VERSION}/liquibase-${env.LIQUIBASE_VERSION}.zip
     -->
 	<get 
-        src="https://github.com/liquibase/liquibase/releases/download/v${env.LIQUIBASE_VERSION}/liquibase-4.29.0.zip"
+        src="https://github.com/liquibase/liquibase/releases/download/v4.29.0/liquibase-4.29.0.zip"
         dest="work/liquibase-4.29.0-bin.zip"/>
     <!--<get src="http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" dest="work/slf4j-api-1.7.25.jar"/>-->
 	</target>
