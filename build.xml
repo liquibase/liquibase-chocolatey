@@ -27,15 +27,15 @@
     -->
 	<get 
         src="https://github.com/liquibase/liquibase/releases/download/v4.29.0/liquibase-4.29.0.zip"
-        dest="work/liquibase-4.29.0-bin.zip"/>
+        dest="work/liquibase-4.29-bin.zip"/>
     <!--<get src="http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" dest="work/slf4j-api-1.7.25.jar"/>-->
 	</target>
    
     <target name="load.sha512.as.property" depends="get.sha512" description="Loads the sha512 checksum as a property.">
         <property environment="env"/>
 		<echo>Generate SHA-512 checksum...</echo>
-		<checksum file="work/liquibase-4.29.0-bin.zip" algorithm="SHA-512" property="sha512"/>
-		<checksum file="work/liquibase-4.29.0-bin.zip" algorithm="SHA-512" fileext=".asc"/>
+		<checksum file="work/liquibase-4.29-bin.zip" algorithm="SHA-512" property="sha512"/>
+		<checksum file="work/liquibase-4.29-bin.zip" algorithm="SHA-512" fileext=".asc"/>
         <echo>Got SHA-512 checksum : &lt;${sha512}&gt;</echo>
     </target>
     

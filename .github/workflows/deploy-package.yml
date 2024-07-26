@@ -47,7 +47,7 @@ jobs:
 
       - name: Choco pack
         run: |
-          choco pack
+          choco pack --version 4.29
 
       - name: Install Temurin 17
         run: choco install temurin17
