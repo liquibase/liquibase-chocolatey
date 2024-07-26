@@ -10,7 +10,7 @@ Install-ChocolateyZipPackage `
   -UnzipLocation $content
 
 # Get the extracted directory name
-$extractedDir = Join-Path $content "liquibase-4.29.0"
+$extractedDir = Join-Path $content "liquibase-@LIQUIBASE_VERSION@"
 
 # Move the contents of the extracted directory to the content directory
 Get-ChildItem -Path $extractedDir | Move-Item -Destination $content -Force
