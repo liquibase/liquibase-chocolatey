@@ -48,6 +48,9 @@ jobs:
       - name: Choco pack
         run: |
           choco pack
+          # print the nupkg file D:\a\liquibase-chocolatey\liquibase-chocolatey\liquibase.4.29.0.nupkg
+          Get-ChildItem -Path . -Recurse -Filter "liquibase.4.29.0.nupkg" -ErrorAction SilentlyContinue
+          
 
       - name: Install Temurin 17
         run: choco install temurin17
