@@ -3,7 +3,7 @@
   <metadata>
     <id>liquibase</id>
     <title>Liquibase</title>
-    <version>4.29</version>
+    <version>@LIQUIBASE_VERSION@</version>
     <authors>Liquibase</authors>
     <owners>Liquibase</owners>
     <summary>An open source library for tracking, managing, and applying database changes.</summary>
@@ -16,7 +16,7 @@ Liquibase is an open source, database-independent library for tracking, managing
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://raw.githubusercontent.com/liquibase/liquibase-chocolatey/master/liquibase.png</iconUrl>
     <packageSourceUrl>https://github.com/liquibase/liquibase-chocolatey</packageSourceUrl>
-    <releaseNotes>https://github.com/liquibase/liquibase/releases/tag/4.29.0</releaseNotes>
+    <releaseNotes>https://github.com/liquibase/liquibase/releases/tag/v@LIQUIBASE_VERSION@</releaseNotes>
     <docsUrl>http://www.liquibase.org/documentation/index.html</docsUrl>
     <bugTrackerUrl>https://liquibase.jira.com/</bugTrackerUrl>
     <projectSourceUrl>https://github.com/liquibase/liquibase</projectSourceUrl>
