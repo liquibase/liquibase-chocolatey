@@ -46,24 +46,24 @@
         <echo>Preparing &lt;liquibase.nuspec&gt; file : injecting liquibase version...</echo>
         <copy file="templates/liquibase.nuspec.TEMPLATE" tofile="liquibase.nuspec"/>
         <echo>Injecting target liquibase version in nuspec file...</echo>
-        <replace file="liquibase.nuspec" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="liquibase.nuspec" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <echo>nuspec file prepared.</echo>
         
         <echo>Preparing &lt;chocolateyInstall.ps1&gt; ...</echo>
         <copy file="templates/chocolateyInstall.ps1.TEMPLATE" tofile="tools/chocolateyInstall.ps1"/>
-        <replace file="tools/chocolateyInstall.ps1" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="tools/chocolateyInstall.ps1" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <replace file="tools/chocolateyInstall.ps1" token="@SHA512@" value="${sha512}"/>
         <echo>&lt;chocolateyInstall.ps1&gt; file prepared.</echo>
         
         <echo>Preparing &lt;chocolateyUninstall.ps1&gt; ...</echo>
         <copy file="templates/chocolateyUninstall.ps1.TEMPLATE" tofile="tools/chocolateyUninstall.ps1"/>
-        <replace file="tools/chocolateyUninstall.ps1" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="tools/chocolateyUninstall.ps1" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <echo>&lt;chocolateyUninstall.ps1&gt; file prepared.</echo>
 		<echo>All build files prepared.</echo>
 		
 		<echo>Preparing &lt;release.ps1&gt; ...</echo>
         <copy file="templates/release.ps1.TEMPLATE" tofile="release.ps1"/>
-        <replace file="release.ps1" token="@LIQUIBASE_VERSION@" value="${env.LIQUIBASE_VERSION}"/>
+        <replace file="release.ps1" token="@LIQUIBASE_VERSION@" value="4.29"/>
         <echo>&lt;release.ps1&gt; file prepared.</echo>
     </target>
 	

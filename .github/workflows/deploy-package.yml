@@ -48,18 +48,16 @@ jobs:
       - name: Choco pack
         run: |
           choco pack
-          # print the nupkg file D:\a\liquibase-chocolatey\liquibase-chocolatey\liquibase.4.29.0.nupkg
-          Get-ChildItem -Path . -Recurse -Filter "liquibase.4.29.0.nupkg" -ErrorAction SilentlyContinue
-          
+        
 
       - name: Install Temurin 17
         run: choco install temurin17
 
       - name: Choco install
         run: |
-          choco install liquibase --version="${{ inputs.version }}" --source="." --debug --verbose
+          choco install liquibase --version="4.29" --source="." --debug --verbose
           liquibase --version
 
       - name: Choco push
         run: |
-          choco push liquibase.4.29.0.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
+          choco push liquibase.4.29.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
