@@ -59,4 +59,7 @@ jobs:
 
       - name: Choco push
         run: |
-          choco push liquibase.${{ inputs.version }}.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
+          $sourceFile = "liquibase.4.29.0.nupkg"
+          $destinationFile = "liquibase.4.29.nupkg"
+          Rename-Item -Path $sourceFile -NewName $destinationFile
+          choco push liquibase.4.29.nupkg --source "'https://push.chocolatey.org/'" --key "${{secrets.CHOCO_APIKEY}}" --debug --verbose
