@@ -60,7 +60,9 @@ jobs:
 
       - name: Set dry-run Draft url
         if: ${{ inputs.dry_run == true }}
-        run: echo "RELEASE_URL=${{ inputs.dry_run_zip_url }}" >> $GITHUB_ENV
+        run: |
+          echo ${{ inputs.dry_run_zip_url }}
+          echo "RELEASE_URL=${{ inputs.dry_run_zip_url }}" >> $GITHUB_ENV
 
       - name: Install Chocolatey
         run: |
