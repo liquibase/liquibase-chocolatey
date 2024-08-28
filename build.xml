@@ -20,6 +20,7 @@
     <target name="get.sha512" description="Get the SHA512 checksum from Liquibase Github official release.">
         <property environment="env"/>
         <echo>Downloading zip distribution file from Github...</echo>
+        <echo message="env.RELEASE_URL is ${env.RELEASE_URL}"/>
         <mkdir dir="work"/>
         <!-- 
             Downloading the file using curl with the Authorization header
@@ -36,7 +37,7 @@
             <arg value="-H"/>
             <arg value="Authorization: Token ${env.BOT_TOKEN}"/>
             <!-- The URL to download from -->
-            <arg value="${env.RELEASE_URL}"/>
+            <arg value="\"${env.RELEASE_URL}\""/>
         </exec>
 
     </target>
