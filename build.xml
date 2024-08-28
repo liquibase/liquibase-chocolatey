@@ -37,7 +37,7 @@
         <arg value="-H"/>
         <arg value="Authorization: Token ${env.BOT_TOKEN}"/>
         <!-- The URL to download from -->
-        <arg value="${env.RELEASE_URL}"/>
+        <arg value="https://api.github.com/repos/liquibase/liquibase/releases/assets/188865015"/>
         <arg value="-o"/>
         <arg value="work/liquibase-${env.LIQUIBASE_VERSION}-bin.zip"/>
     </exec>
