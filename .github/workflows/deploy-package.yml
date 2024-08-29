@@ -38,6 +38,7 @@ jobs:
     env:
       LIQUIBASE_VERSION: ${{ inputs.version }}
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      DRY_RUN_ZIP_URL: ${{ inputs.dry_run_zip_url }}
 
     steps:
       - name: Checkout code
@@ -72,9 +73,14 @@ jobs:
         run: choco install ant
 
       - name: Build nupkg Chocolatey package
+        if: ${{ inputs.dry_run == false }}
         run: |
-          echo "The RELEASE_URL is ${{ env.RELEASE_URL }}"
           ant make-nuspec
+
+      - name: Build nupkg Chocolatey package dry-run
+        if: ${{ inputs.dry_run == true }}
+        run: |
+          ant -f build_dry_run.xml make-nuspec
 
       - name: Choco pack
         run: |
