@@ -26,8 +26,6 @@
         https://github.com/liquibase/liquibase/releases/download/v${env.LIQUIBASE_VERSION}/liquibase-${env.LIQUIBASE_VERSION}.zip
     -->
     <exec executable="curl">
-        <!-- Use -OJ to save the file with the name suggested by the remote server -->
-        <arg value="-OJ"/>
         <!-- Follow redirects -->
         <arg value="-L"/>
         <!-- Set the Accept header -->
@@ -37,7 +35,8 @@
         <arg value="-H"/>
         <arg value="Authorization: Token ${env.BOT_TOKEN}"/>
         <!-- The URL to download from -->
-        <arg value="https://api.github.com/repos/liquibase/liquibase/releases/assets/188865015"/>
+        <arg value="${env.LIQUIBASE_VERSION}"/>
+        <!-- Specify the output filename -->
         <arg value="-o"/>
         <arg value="work/liquibase-${env.LIQUIBASE_VERSION}-bin.zip"/>
     </exec>

@@ -72,7 +72,9 @@ jobs:
         run: choco install ant
 
       - name: Build nupkg Chocolatey package
-        run: ant make-nuspec
+        run: |
+          echo "The RELEASE_URL is ${{ env.RELEASE_URL }}"
+          ant make-nuspec
 
       - name: Choco pack
         run: |
