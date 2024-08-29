@@ -55,16 +55,6 @@ jobs:
       - name: Verify Java version
         run: java -version
 
-      - name: Set Draft url
-        if: ${{ inputs.dry_run == false }}
-        run: echo "RELEASE_URL=https://github.com/liquibase/${{ inputs.version }}/releases/download/v${{ inputs.version }}/liquibase-${{ inputs.version }}.zip" >> $GITHUB_ENV
-
-      - name: Set dry-run Draft url
-        if: ${{ inputs.dry_run == true }}
-        run: |
-          echo ${{ inputs.dry_run_zip_url }}
-          echo "RELEASE_URL=${{ inputs.dry_run_zip_url }}" >> $GITHUB_ENV
-
       - name: Install Chocolatey
         run: |
           Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
