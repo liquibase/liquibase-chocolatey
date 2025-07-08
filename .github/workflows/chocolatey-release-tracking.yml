@@ -1,0 +1,102 @@
+name: Chocolatey Release Tracking
+
+on:
+  workflow_run:
+    workflows: ["Choco Build and Deploy"]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  check-chocolatey-availability:
+    runs-on: ubuntu-latest
+    # Only run if the deploy workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      is_available: ${{ steps.check-availability.outputs.is_available }}
+      version: ${{ steps.check-availability.outputs.version }}
+      status_message: ${{ steps.check-availability.outputs.status_message }}
+      status_color: ${{ steps.check-availability.outputs.status_color }}
+    steps:
+      - name: Get version from deploy workflow
+        id: get-version
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Get the workflow run that triggered this
+            const triggeringRun = await github.rest.actions.getWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.payload.workflow_run.id
+            });
+            
+            // Get the inputs from the triggering workflow
+            const inputs = triggeringRun.data.inputs || {};
+            const version = inputs.version;
+            
+            if (!version) {
+              core.setFailed('Could not extract version from triggering workflow');
+              return;
+            }
+            
+            console.log(`Extracted version: ${version}`);
+            core.setOutput('version', version);
+
+      - name: Check Chocolatey availability
+        id: check-availability
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const version = '${{ steps.get-version.outputs.version }}';
+            
+            try {
+              // Check if the package page exists
+              const response = await fetch(`https://community.chocolatey.org/packages/liquibase/${version}`);
+              const isAvailable = response.ok;
+              
+              let statusMessage;
+              let statusColor;
+              
+              if (isAvailable) {
+                statusMessage = `✅ Liquibase v${version} is now available on Chocolatey!\nInstall with: \`choco install liquibase --version ${version}\`\nPackage URL: https://community.chocolatey.org/packages/liquibase/${version}`;
+                statusColor = 'good';
+                console.log(`✅ Version ${version} is available on Chocolatey`);
+              } else {
+                statusMessage = `⏳ Liquibase v${version} is not yet available on Chocolatey.\nPackage may still be processing. Will check again later.`;
+                statusColor = 'warning';
+                console.log(`⏳ Version ${version} is not yet available on Chocolatey`);
+              }
+              
+              core.setOutput('is_available', isAvailable.toString());
+              core.setOutput('version', version);
+              core.setOutput('status_message', statusMessage);
+              core.setOutput('status_color', statusColor);
+              
+            } catch (error) {
+              console.error(`Error checking Chocolatey for version ${version}: ${error.message}`);
+              core.setOutput('is_available', 'false');
+              core.setOutput('version', version);
+              core.setOutput('status_message', `❌ Error checking Chocolatey availability for v${version}: ${error.message}`);
+              core.setOutput('status_color', 'danger');
+            }
+
+  notify:
+    needs: check-chocolatey-availability
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.DOCKER_SLACK_WEBHOOK_URL }}
+          SLACK_CHANNEL: chocolatey-updates
+          SLACK_USERNAME: Chocolatey Release Bot
+          SLACK_ICON_EMOJI: ':package:'
+          SLACK_TITLE: Chocolatey Release Check
+          SLACK_MESSAGE: ${{ needs.check-chocolatey-availability.outputs.status_message }}
+          SLACK_COLOR: ${{ needs.check-chocolatey-availability.outputs.status_color }}
